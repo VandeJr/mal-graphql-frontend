@@ -1,0 +1,92 @@
+"The javascript `Date` as string. Type represents date and time as the ISO Date string."
+scalar DateTime
+type Query {
+  getAnimeList(offset: Float! = 0, limit: Float! = 10, search: String!): [Anime!]!
+  getAnimeDetail(id: Float!): Anime!
+  getAnimeRanking(offset: Float! = 0, limit: Float! = 10, rankingType: String!): [Anime!]!
+  getSeasonalAnime(offset: Float! = 0, limit: Float! = 10, sort: String!, season: String!, year: Float!): [Anime!]!
+}
+type Anime {
+  id: Float!
+  title: String!
+  main_picture: Picture!
+  alternative_titles: AlternativeTitles!
+  start_date: DateTime!
+  end_date: DateTime!
+  synopsis: String!
+  mean: Float!
+  rank: Float!
+  popularity: Float!
+  num_list_users: Float!
+  num_scoring_users: Float!
+  nsfw: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  media_type: String!
+  status: String!
+  genres: [Genre!]!
+  num_episodes: Float!
+  start_season: StartSeason!
+  broadcast: Broadcast!
+  source: String!
+  average_episode_duration: Float!
+  rating: String!
+  pictures: [Picture!]!
+  background: String!
+  related_anime: [RelatedAnime!]!
+  recommendations: [Recommendation!]!
+  studios: [Genre!]!
+  statistics: Statistics!
+}
+type Picture {
+  medium: String!
+  large: String!
+}
+type AlternativeTitles {
+  synonyms: [String!]!
+  en: String!
+  ja: String!
+}
+type Genre {
+  id: Float!
+  name: String!
+}
+type StartSeason {
+  year: Float!
+  season: String!
+}
+type Broadcast {
+  day_of_the_week: String!
+  start_time: String!
+}
+type RelatedAnime {
+  node: Node!
+  relation_type: String!
+  relation_type_formatted: String!
+}
+type Node {
+  id: Float!
+  title: String!
+  main_picture: Picture!
+}
+type Recommendation {
+  node: Node!
+  num_recommendations: Float!
+}
+type Statistics {
+  status: Status!
+  num_list_users: Float!
+}
+type Status {
+  watching: String!
+  completed: String!
+  on_hold: String!
+  dropped: String!
+  plan_to_watch: String!
+}
+"Exposes a URL that specifies the behavior of this scalar."
+directive @specifiedBy(
+    "The URL that specifies the behavior of this scalar."
+    url: String!
+  ) on SCALAR
+
